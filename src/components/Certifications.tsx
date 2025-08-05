@@ -2,7 +2,7 @@ import { Award, Calendar, ExternalLink, X, Eye } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 
-export default function Certifications() {
+export function Certifications() {
   const [selectedImage, setSelectedImage] = useState(null)
   
   const certifications = [
