@@ -155,29 +155,29 @@ export function Certifications() {
         </div>
       </section>
 
-      {/* Image Modal - Fixed positioning and z-index */}
+      {/* Image Modal - Dark/Light Mode Responsive */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/80 dark:bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
           style={{ zIndex: 9999 }}
           onClick={closeImageModal}
         >
           <div 
-            className="relative w-full max-w-6xl max-h-[95vh] bg-white rounded-lg overflow-hidden shadow-2xl"
+            className="relative w-full max-w-6xl max-h-[95vh] bg-background dark:bg-card rounded-lg overflow-hidden shadow-2xl border border-border"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={closeImageModal}
-              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-2 transition-colors"
+              className="absolute top-4 right-4 z-10 bg-background/90 dark:bg-card/90 hover:bg-background dark:hover:bg-card text-foreground border border-border rounded-full p-2 transition-colors shadow-lg"
               style={{ zIndex: 10 }}
             >
               <X className="h-6 w-6" />
             </button>
             
             {/* Certificate Info Header */}
-            <div className="p-6 border-b bg-gray-50">
-              <h3 className="text-2xl font-semibold mb-3">{selectedImage.title}</h3>
+            <div className="p-6 border-b border-border bg-muted/50 dark:bg-card/50">
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">{selectedImage.title}</h3>
               <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
                 <span className="font-medium">{selectedImage.issuer}</span>
                 <span>•</span>
@@ -199,12 +199,12 @@ export function Certifications() {
             </div>
             
             {/* Image Container - Optimized for certificate viewing */}
-            <div className="relative bg-white p-4">
+            <div className="relative bg-background dark:bg-card p-4">
               <div className="flex items-center justify-center">
                 <img 
                   src={selectedImage.image} 
                   alt={`${selectedImage.title} certification`}
-                  className="max-w-full max-h-[70vh] object-contain shadow-lg rounded"
+                  className="max-w-full max-h-[70vh] object-contain shadow-lg rounded border border-border/20"
                   style={{ 
                     minHeight: '400px',
                     width: 'auto',
@@ -215,7 +215,7 @@ export function Certifications() {
             </div>
             
             {/* Footer */}
-            <div className="p-4 bg-gray-50 text-center border-t">
+            <div className="p-4 bg-muted/50 dark:bg-card/50 text-center border-t border-border">
               <p className="text-sm text-muted-foreground">Click outside the image or press the X button to close</p>
             </div>
           </div>
