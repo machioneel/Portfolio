@@ -7,7 +7,7 @@ export function Certifications() {
       title: "Google IT Support Professional Certificate",
       issuer: "Google",
       date: "2025",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop",
+      image: "https://ustjdwftdufeazfvhgir.supabase.co/storage/v1/object/public/media-files//Google%20IT%20Support_page-0001.jpg",
       description: "Validates the fundamental skills required for an IT Support role, covering networking, operating systems, and basic security."
     },
     {
