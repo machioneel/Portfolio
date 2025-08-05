@@ -14,22 +14,22 @@ export function Certifications() {
       title: "IBM Ethical Hacking with Open Source Tools Professional Certificate",
       issuer: "IBM",
       date: "2025",
-      image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=200&h=200&fit=crop",
+      image: "https://ustjdwftdufeazfvhgir.supabase.co/storage/v1/object/public/media-files//Coursera%200RCANOWKPES1_copy_page-0001.jpg",
       description: "Validates hands-on skills in ethical hacking and penetration testing methodologies using common open-source tools to identify and analyze system vulnerabilities."
     },
     {
       title: "Fortinet Certified Associate in Cybersecurity",
       issuer: "Fortinet",
       date: "2025",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=200&h=200&fit=crop",
+      image: "https://ustjdwftdufeazfvhgir.supabase.co/storage/v1/object/public/media-files//Fortinet%20Certified%20Associate%20in%20Cybersecurity_page-0001.jpg",
       description: "Demonstrates an understanding of the modern cyber threat landscape and network security concepts, validated by a leading security vendor."
     },
     {
-      title: "Akamai Network Engineering Professional Certificate",
-      issuer: "Akamai Technologies",
+      title: "Code Generation and Optimization using IBM Granite",
+      issuer: "IBM",
       date: "2025",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=200&h=200&fit=crop",
-      description: "Validates expertise in configuring and managing Akamai's edge platform, focusing on Content Delivery Networks (CDN), DNS, and web performance optimization."
+      image: "https://ustjdwftdufeazfvhgir.supabase.co/storage/v1/object/public/media-files//Code%20Generation%20and%20Optimization%20Using%20IBM%20Granite.png",
+      description: "successfully completed the requirements for a program focused on using the IBM Granite model for code generation and optimization."
     }
   ]
 
