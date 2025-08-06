@@ -9,7 +9,7 @@ export function Projects() {
       description: "Developed a functional IoT vehicle prototype controlled via the web, featuring live-view streaming and an autonomous navigation mode.",
       technologies: ["IoT", "Microcontroller", "C++", "MQTT", "Web Development"],
       icon: Cpu,
-      github: "https://github.com",
+      github: "https://github.com/machioneel/IoT-Mini-Vehicle",
       live: "https://example.com"
     },
     {
@@ -17,7 +17,7 @@ export function Projects() {
       description: "Led an internal initiative to improve data security through archive digitalization, user access management, and network security configuration.",
       technologies: ["Information Security", "Asset Management", "System Administration", "Network Configuration", "Project Management"],
       icon: Shield,
-      github: "https://github.com",
+      github: "https://github.com/machioneel/Asset-Management",
       live: "https://example.com"
     },
     {
@@ -25,7 +25,7 @@ export function Projects() {
       description: "Designed and built a fully-responsive personal portfolio website from scratch to demonstrate technical skills and projects.",
       technologies: ["React", "Tailwind", "Framer Motion", "Vite"],
       icon: Globe,
-      github: "https://github.com",
+      github: "https://github.com/machioneel/Portfolio",
       live: "https://example.com"
     }
   ]

@@ -106,6 +106,16 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Hide scrollbars for all browsers */
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  *::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
 }
 
 @layer components {
@@ -158,5 +168,98 @@ All colors MUST be HSL.
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Loading page specific animations */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.6);
+  }
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 800ms ease-out;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 600ms ease-in;
+}
+
+/* Prevent text selection on loading page */
+.loading-page *,
+[role="button"] {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Enhanced focus styles for accessibility */
+[role="button"]:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Ensure clickable elements have proper cursor */
+[role="button"] {
+  cursor: pointer !important;
+}
+
+/* Loading page specific styles */
+.loading-page-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive text scaling */
+@media (max-width: 640px) {
+  [role="button"] {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+}
+
+@media (max-width: 480px) {
+  [role="button"] {
+    font-size: 2rem;
+    line-height: 1.2;
   }
 }

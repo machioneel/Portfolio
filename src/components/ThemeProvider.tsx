@@ -10,11 +10,15 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme
+  // PERUBAHAN 1: Tambahkan resolvedTheme ke dalam tipe state
+  resolvedTheme: "dark" | "light" 
   setTheme: (theme: Theme) => void
 }
 
 const initialState: ThemeProviderState = {
   theme: "system",
+  // Tambahkan nilai default untuk resolvedTheme
+  resolvedTheme: "light",
   setTheme: () => null,
 }
 
@@ -29,27 +33,37 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   )
+  
+  // PERUBAHAN 2: Tambahkan state baru untuk menyimpan tema yang sebenarnya aktif
+  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
 
   useEffect(() => {
     const root = window.document.documentElement
-
     root.classList.remove("light", "dark")
 
+    let currentTheme: "dark" | "light";
+
     if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light"
-
+      
       root.classList.add(systemTheme)
-      return
+      currentTheme = systemTheme;
+    } else {
+      root.classList.add(theme)
+      currentTheme = theme;
     }
+    
+    // Update state resolvedTheme setiap kali tema berubah
+    setResolvedTheme(currentTheme);
 
-    root.classList.add(theme)
   }, [theme])
 
   const value = {
     theme,
+    // PERUBAHAN 3: Sertakan resolvedTheme dalam value yang diberikan ke provider
+    resolvedTheme,
     setTheme: (theme: Theme) => {
       localStorage.setItem(storageKey, theme)
       setTheme(theme)
