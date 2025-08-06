@@ -1,8 +1,8 @@
 import { Award, Calendar, ExternalLink, X, Eye } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-export default function Certifications() {
+export function Certifications() {
   const [selectedImage, setSelectedImage] = useState(null)
   
   const certifications = [
@@ -45,19 +45,15 @@ export default function Certifications() {
     setSelectedImage(cert)
   }
 
-  const closeImageModal = (e) => {
-    if (e) {
-      e.preventDefault()
-      e.stopPropagation()
-    }
+  const closeImageModal = () => {
     console.log('Closing modal')
     setSelectedImage(null)
   }
 
-  // Handle escape key
-  React.useEffect(() => {
+  // Handle escape key and body scroll lock
+  useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape' && selectedImage) {
+      if (e.key === 'Escape') {
         closeImageModal()
       }
     }
@@ -65,11 +61,11 @@ export default function Certifications() {
     if (selectedImage) {
       document.addEventListener('keydown', handleEscape)
       document.body.style.overflow = 'hidden'
-    }
-    
-    return () => {
-      document.removeEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'unset'
+      
+      return () => {
+        document.removeEventListener('keydown', handleEscape)
+        document.body.style.overflow = 'unset'
+      }
     }
   }, [selectedImage])
 
@@ -165,64 +161,163 @@ export default function Certifications() {
       {/* Image Modal - Fixed Version */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            backdropFilter: 'blur(4px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px'
+          }}
           onClick={closeImageModal}
         >
           <div 
-            className="relative w-full max-w-6xl max-h-[95vh] bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700"
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '1152px',
+              maxHeight: '95vh',
+              backgroundColor: 'white',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              border: '1px solid #e5e7eb'
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={closeImageModal}
-              className="absolute top-4 right-4 z-10 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-600 rounded-full p-2 transition-colors shadow-lg"
+              style={{
+                position: 'absolute',
+                top: '16px',
+                right: '16px',
+                zIndex: 10,
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid #e5e7eb',
+                borderRadius: '50%',
+                padding: '8px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = 'white'}
+              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = 'rgba(255, 255, 255, 0.9)'}
               aria-label="Close modal"
             >
-              <X className="h-6 w-6" />
+              <X size={24} color="#111827" />
             </button>
             
             {/* Certificate Info Header */}
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-              <h3 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">{selectedImage.title}</h3>
-              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                <span className="font-medium">{selectedImage.issuer}</span>
+            <div style={{
+              padding: '24px',
+              borderBottom: '1px solid #e5e7eb',
+              backgroundColor: '#f9fafb'
+            }}>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '600',
+                marginBottom: '12px',
+                color: '#111827'
+              }}>{selectedImage.title}</h3>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                fontSize: '14px',
+                color: '#6b7280',
+                marginBottom: '12px'
+              }}>
+                <span style={{ fontWeight: '500' }}>{selectedImage.issuer}</span>
                 <span>•</span>
-                <div className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <Calendar size={16} />
                   <span>{selectedImage.date}</span>
                 </div>
               </div>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{selectedImage.description}</p>
+              <p style={{
+                color: '#6b7280',
+                fontSize: '14px',
+                marginBottom: '16px',
+                lineHeight: '1.5'
+              }}>{selectedImage.description}</p>
               <a 
                 href={selectedImage.credentialUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '14px',
+                  color: '#2563eb',
+                  fontWeight: '500',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => (e.target as HTMLAnchorElement).style.color = '#1d4ed8'}
+                onMouseLeave={(e) => (e.target as HTMLAnchorElement).style.color = '#2563eb'}
               >
                 View Original Credential
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink size={16} />
               </a>
             </div>
             
             {/* Image Container */}
-            <div className="relative bg-white dark:bg-gray-900 p-4">
-              <div className="flex items-center justify-center">
+            <div style={{
+              position: 'relative',
+              backgroundColor: 'white',
+              padding: '16px'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
                 <img 
                   src={selectedImage.image} 
                   alt={`${selectedImage.title} certification`}
-                  className="max-w-full max-h-[70vh] object-contain shadow-lg rounded border border-gray-200/20 dark:border-gray-700/20"
                   style={{ 
+                    maxWidth: '100%',
+                    maxHeight: '70vh',
                     minHeight: '400px',
                     width: 'auto',
-                    height: 'auto'
+                    height: 'auto',
+                    objectFit: 'contain',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                    borderRadius: '4px',
+                    border: '1px solid rgba(229, 231, 235, 0.2)'
                   }}
                 />
               </div>
             </div>
             
             {/* Footer */}
-            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 text-center border-t border-gray-200 dark:border-gray-700">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Click outside the image or press the X button to close</p>
+            <div style={{
+              padding: '16px',
+              backgroundColor: '#f9fafb',
+              textAlign: 'center',
+              borderTop: '1px solid #e5e7eb'
+            }}>
+              <p style={{
+                fontSize: '14px',
+                color: '#6b7280'
+              }}>
+                Click outside the image, press <kbd style={{
+                  padding: '4px 8px',
+                  fontSize: '12px',
+                  backgroundColor: '#e5e7eb',
+                  borderRadius: '4px',
+                  border: '1px solid #d1d5db'
+                }}>ESC</kbd>, or click the X button to close
+              </p>
             </div>
           </div>
         </div>
