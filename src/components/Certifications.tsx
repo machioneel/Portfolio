@@ -1,10 +1,21 @@
-import { Award, Calendar, ExternalLink, X, Eye } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { useState, useEffect } from "react"
+// src/components/Certifications.tsx
+
+import { Award, Calendar, ExternalLink, Eye } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "./ui/button";
 
 export function Certifications() {
-  const [selectedImage, setSelectedImage] = useState(null)
-  
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+
   const certifications = [
     {
       title: "Google IT Support Professional Certificate",
@@ -38,36 +49,25 @@ export function Certifications() {
       description: "Successfully completed the requirements for a program focused on using the IBM Granite model for code generation and optimization.",
       credentialUrl: "https://www.credly.com/badges/894c20e7-727b-428d-af35-5aaf38621261/public_url"
     }
-  ]
+  ];
 
-  const openImageModal = (cert) => {
-    console.log('Opening modal for:', cert.title)
-    setSelectedImage(cert)
-  }
+  const openImageModal = (cert: any) => {
+    setSelectedImage(cert);
+  };
 
   const closeImageModal = () => {
-    console.log('Closing modal')
-    setSelectedImage(null)
-  }
+    setSelectedImage(null);
+  };
 
-  // Handle escape key and body scroll lock
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') {
-        closeImageModal()
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeImageModal();
       }
-    }
-    
-    if (selectedImage) {
-      document.addEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'hidden'
-      
-      return () => {
-        document.removeEventListener('keydown', handleEscape)
-        document.body.style.overflow = 'unset'
-      }
-    }
-  }, [selectedImage])
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
 
   return (
     <>
@@ -79,33 +79,37 @@ export function Certifications() {
                 Certifications & Awards
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Continuous learning and professional development through industry-recognized certifications
+                Continuous learning and professional development through
+                industry-recognized certifications
               </p>
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               {certifications.map((cert, index) => (
-                <Card 
-                  key={index} 
-                  className={`border-0 bg-card shadow-subtle transition-smooth hover:shadow-md group fade-in fade-in-delay-${Math.min(index + 1, 3)}`}
+                <Card
+                  key={index}
+                  className={`border-0 bg-card shadow-subtle transition-smooth hover:shadow-md group fade-in fade-in-delay-${Math.min(
+                    index + 1,
+                    3
+                  )}`}
                 >
                   <CardContent className="p-8">
                     <div className="flex items-start gap-6">
                       <div className="relative overflow-hidden rounded-lg flex-shrink-0 group/image">
-                        <img 
-                          src={cert.image} 
+                        <img
+                          src={cert.image}
                           alt={`${cert.title} certification badge`}
                           className="w-20 h-20 object-cover transition-smooth group-hover:scale-105 cursor-pointer"
                           onClick={() => openImageModal(cert)}
                         />
-                        <div 
+                        <div
                           className="absolute inset-0 bg-black/50 opacity-0 group-hover/image:opacity-100 transition-smooth flex items-center justify-center cursor-pointer"
                           onClick={() => openImageModal(cert)}
                         >
                           <Eye className="h-6 w-6 text-white" />
                         </div>
                       </div>
-                      
+
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between mb-3">
                           <h3 className="text-xl font-medium leading-tight pr-4">
@@ -113,7 +117,7 @@ export function Certifications() {
                           </h3>
                           <Award className="h-5 w-5 text-primary flex-shrink-0" />
                         </div>
-                        
+
                         <div className="flex items-center gap-2 mb-3">
                           <span className="text-muted-foreground font-medium">
                             {cert.issuer}
@@ -124,11 +128,11 @@ export function Certifications() {
                             <span>{cert.date}</span>
                           </div>
                         </div>
-                        
+
                         <p className="text-muted-foreground leading-relaxed text-sm mb-4">
                           {cert.description}
                         </p>
-                        
+
                         <div className="flex items-center gap-4">
                           <button
                             onClick={() => openImageModal(cert)}
@@ -137,8 +141,8 @@ export function Certifications() {
                             View Certificate
                             <Eye className="h-4 w-4" />
                           </button>
-                          
-                          <a 
+
+                          <a
                             href={cert.credentialUrl}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -158,170 +162,62 @@ export function Certifications() {
         </div>
       </section>
 
-      {/* Image Modal - Fixed Version */}
-      {selectedImage && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 9999,
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            backdropFilter: 'blur(4px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px'
-          }}
-          onClick={closeImageModal}
-        >
-          <div 
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '1152px',
-              maxHeight: '95vh',
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-              border: '1px solid #e5e7eb'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button
-              onClick={closeImageModal}
-              style={{
-                position: 'absolute',
-                top: '16px',
-                right: '16px',
-                zIndex: 10,
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                border: '1px solid #e5e7eb',
-                borderRadius: '50%',
-                padding: '8px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'background-color 0.2s'
-              }}
-              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = 'white'}
-              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = 'rgba(255, 255, 255, 0.9)'}
-              aria-label="Close modal"
-            >
-              <X size={24} color="#111827" />
-            </button>
-            
-            {/* Certificate Info Header */}
-            <div style={{
-              padding: '24px',
-              borderBottom: '1px solid #e5e7eb',
-              backgroundColor: '#f9fafb'
-            }}>
-              <h3 style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                marginBottom: '12px',
-                color: '#111827'
-              }}>{selectedImage.title}</h3>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                fontSize: '14px',
-                color: '#6b7280',
-                marginBottom: '12px'
-              }}>
-                <span style={{ fontWeight: '500' }}>{selectedImage.issuer}</span>
-                <span>•</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <Calendar size={16} />
-                  <span>{selectedImage.date}</span>
+      {/* -- PERUBAHAN DIMULAI DI SINI -- */}
+      <Dialog
+        open={!!selectedImage}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) closeImageModal();
+        }}
+      >
+        <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col p-0 outline outline-1 outline-border">
+          {selectedImage && (
+            <>
+              <DialogHeader className="p-6 pb-4 border-b">
+                <DialogTitle className="text-2xl font-medium">
+                  {selectedImage.title}
+                </DialogTitle>
+                <DialogDescription className="pt-2">
+                  <p className="mb-3">{selectedImage.description}</p>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <span className="font-medium">{selectedImage.issuer}</span>
+                    <span>•</span>
+                    <div className="flex items-center gap-1.5">
+                      <Calendar size={14} />
+                      <span>{selectedImage.date}</span>
+                    </div>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="p-6 flex-1 overflow-y-auto">
+                <div className="relative w-full bg-muted/50 rounded-md border p-2">
+                  <img
+                    src={selectedImage.image}
+                    alt={`${selectedImage.title} certification`}
+                    className="w-full h-auto object-contain rounded-sm"
+                  />
                 </div>
               </div>
-              <p style={{
-                color: '#6b7280',
-                fontSize: '14px',
-                marginBottom: '16px',
-                lineHeight: '1.5'
-              }}>{selectedImage.description}</p>
-              <a 
-                href={selectedImage.credentialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '14px',
-                  color: '#2563eb',
-                  fontWeight: '500',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={(e) => (e.target as HTMLAnchorElement).style.color = '#1d4ed8'}
-                onMouseLeave={(e) => (e.target as HTMLAnchorElement).style.color = '#2563eb'}
-              >
-                View Original Credential
-                <ExternalLink size={16} />
-              </a>
-            </div>
-            
-            {/* Image Container */}
-            <div style={{
-              position: 'relative',
-              backgroundColor: 'white',
-              padding: '16px'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <img 
-                  src={selectedImage.image} 
-                  alt={`${selectedImage.title} certification`}
-                  style={{ 
-                    maxWidth: '100%',
-                    maxHeight: '70vh',
-                    minHeight: '400px',
-                    width: 'auto',
-                    height: 'auto',
-                    objectFit: 'contain',
-                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                    borderRadius: '4px',
-                    border: '1px solid rgba(229, 231, 235, 0.2)'
-                  }}
-                />
-              </div>
-            </div>
-            
-            {/* Footer */}
-            <div style={{
-              padding: '16px',
-              backgroundColor: '#f9fafb',
-              textAlign: 'center',
-              borderTop: '1px solid #e5e7eb'
-            }}>
-              <p style={{
-                fontSize: '14px',
-                color: '#6b7280'
-              }}>
-                Click outside the image, press <kbd style={{
-                  padding: '4px 8px',
-                  fontSize: '12px',
-                  backgroundColor: '#e5e7eb',
-                  borderRadius: '4px',
-                  border: '1px solid #d1d5db'
-                }}>ESC</kbd>, or click the X button to close
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+
+              <DialogFooter className="p-6 pt-4 border-t bg-secondary/40 flex-row justify-between items-center">
+                <a
+                  href={selectedImage.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium"
+                >
+                  View Original Credential
+                  <ExternalLink size={16} />
+                </a>
+                <Button variant="outline" onClick={closeImageModal}>
+                  Close
+                </Button>
+              </DialogFooter>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+      {/* -- PERUBAHAN SELESAI -- */}
     </>
-  )
-}
+  );
+} 
