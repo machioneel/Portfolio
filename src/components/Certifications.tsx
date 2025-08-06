@@ -2,7 +2,7 @@ import { Award, Calendar, ExternalLink, X, Eye } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 
-export function Certifications() {
+export default function Certifications() {
   const [selectedImage, setSelectedImage] = useState(null)
   
   const certifications = [
@@ -41,7 +41,7 @@ export function Certifications() {
   ]
 
   const openImageModal = (cert) => {
-    console.log('Opening modal for:', cert.title) // Debug log
+    console.log('Opening modal for:', cert.title)
     setSelectedImage(cert)
   }
 
@@ -50,9 +50,28 @@ export function Certifications() {
       e.preventDefault()
       e.stopPropagation()
     }
-    console.log('Closing modal') // Debug log
+    console.log('Closing modal')
     setSelectedImage(null)
   }
+
+  // Handle escape key
+  React.useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && selectedImage) {
+        closeImageModal()
+      }
+    }
+    
+    if (selectedImage) {
+      document.addEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'hidden'
+    }
+    
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedImage])
 
   return (
     <>
@@ -81,19 +100,11 @@ export function Certifications() {
                           src={cert.image} 
                           alt={`${cert.title} certification badge`}
                           className="w-20 h-20 object-cover transition-smooth group-hover:scale-105 cursor-pointer"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                            openImageModal(cert)
-                          }}
+                          onClick={() => openImageModal(cert)}
                         />
                         <div 
                           className="absolute inset-0 bg-black/50 opacity-0 group-hover/image:opacity-100 transition-smooth flex items-center justify-center cursor-pointer"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                            openImageModal(cert)
-                          }}
+                          onClick={() => openImageModal(cert)}
                         >
                           <Eye className="h-6 w-6 text-white" />
                         </div>
@@ -124,11 +135,7 @@ export function Certifications() {
                         
                         <div className="flex items-center gap-4">
                           <button
-                            onClick={(e) => {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              openImageModal(cert)
-                            }}
+                            onClick={() => openImageModal(cert)}
                             className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
                           >
                             View Certificate
@@ -155,30 +162,29 @@ export function Certifications() {
         </div>
       </section>
 
-      {/* Image Modal - Dark/Light Mode Responsive */}
+      {/* Image Modal - Fixed Version */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black/80 dark:bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-          style={{ zIndex: 9999 }}
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={closeImageModal}
         >
           <div 
-            className="relative w-full max-w-6xl max-h-[95vh] bg-background dark:bg-card rounded-lg overflow-hidden shadow-2xl border border-border"
+            className="relative w-full max-w-6xl max-h-[95vh] bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={closeImageModal}
-              className="absolute top-4 right-4 z-10 bg-background/90 dark:bg-card/90 hover:bg-background dark:hover:bg-card text-foreground border border-border rounded-full p-2 transition-colors shadow-lg"
-              style={{ zIndex: 10 }}
+              className="absolute top-4 right-4 z-10 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-600 rounded-full p-2 transition-colors shadow-lg"
+              aria-label="Close modal"
             >
               <X className="h-6 w-6" />
             </button>
             
             {/* Certificate Info Header */}
-            <div className="p-6 border-b border-border bg-muted/50 dark:bg-card/50">
-              <h3 className="text-2xl font-semibold mb-3 text-foreground">{selectedImage.title}</h3>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+              <h3 className="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">{selectedImage.title}</h3>
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
                 <span className="font-medium">{selectedImage.issuer}</span>
                 <span>•</span>
                 <div className="flex items-center gap-1">
@@ -186,25 +192,25 @@ export function Certifications() {
                   <span>{selectedImage.date}</span>
                 </div>
               </div>
-              <p className="text-muted-foreground text-sm mb-4">{selectedImage.description}</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{selectedImage.description}</p>
               <a 
                 href={selectedImage.credentialUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+                className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium"
               >
                 View Original Credential
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>
             
-            {/* Image Container - Optimized for certificate viewing */}
-            <div className="relative bg-background dark:bg-card p-4">
+            {/* Image Container */}
+            <div className="relative bg-white dark:bg-gray-900 p-4">
               <div className="flex items-center justify-center">
                 <img 
                   src={selectedImage.image} 
                   alt={`${selectedImage.title} certification`}
-                  className="max-w-full max-h-[70vh] object-contain shadow-lg rounded border border-border/20"
+                  className="max-w-full max-h-[70vh] object-contain shadow-lg rounded border border-gray-200/20 dark:border-gray-700/20"
                   style={{ 
                     minHeight: '400px',
                     width: 'auto',
@@ -215,8 +221,8 @@ export function Certifications() {
             </div>
             
             {/* Footer */}
-            <div className="p-4 bg-muted/50 dark:bg-card/50 text-center border-t border-border">
-              <p className="text-sm text-muted-foreground">Click outside the image or press the X button to close</p>
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 text-center border-t border-gray-200 dark:border-gray-700">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Click outside the image or press the X button to close</p>
             </div>
           </div>
         </div>
