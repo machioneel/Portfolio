@@ -10,7 +10,7 @@ export function Projects() {
       technologies: ["IoT", "Microcontroller", "C++", "MQTT", "Web Development"],
       icon: Cpu,
       github: "https://github.com/machioneel/IoT-Mini-Vehicle",
-      live: "https://example.com"
+      live: "https://iot-mini-vehicle.vercel.app/"
     },
     {
       title: "Digitalization and Asset Security Initiative",
@@ -18,7 +18,7 @@ export function Projects() {
       technologies: ["Information Security", "Asset Management", "System Administration", "Network Configuration", "Project Management"],
       icon: Shield,
       github: "https://github.com/machioneel/Asset-Management",
-      live: "https://example.com"
+      live: "https://asset-management-cyan.vercel.app/"
     },
     {
       title: "Portfolio Website",
@@ -26,7 +26,7 @@ export function Projects() {
       technologies: ["React", "Tailwind", "Framer Motion", "Vite"],
       icon: Globe,
       github: "https://github.com/machioneel/Portfolio",
-      live: "https://example.com"
+      live: "https://aprastyo.my.id/"
     }
   ]
 
