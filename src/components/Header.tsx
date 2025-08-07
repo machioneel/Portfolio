@@ -12,9 +12,15 @@ export function Header() {
   }, [])
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+    const sections = ["home", "about", "projects", "certifications", "contact"]
+    const sectionIndex = sections.indexOf(sectionId)
+    
+    if (sectionIndex !== -1) {
+      // Dispatch custom event for horizontal navigation
+      const event = new CustomEvent('navigateToSection', { 
+        detail: { sectionIndex } 
+      })
+      window.dispatchEvent(event)
     }
   }
 

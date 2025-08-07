@@ -1,9 +1,5 @@
 import { Header } from "@/components/Header";
-import { Hero } from "@/components/Hero";
-import { About } from "@/components/About";
-import { Projects } from "@/components/Projects";
-import { Certifications } from "@/components/Certifications";
-import { Contact } from "@/components/Contact";
+import { HorizontalSectionsContainer } from "@/components/HorizontalSectionsContainer";
 import { Footer } from "@/components/Footer";
 import { LoadingPage } from "@/components/LoadingPage";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -47,9 +43,9 @@ const Index = () => {
     <div className="relative min-h-screen bg-background">
       <Particles
         className="absolute inset-0"
-        quantity={isUnlocked ? 500 : 250}
-        staticity={50}
-        ease={50}
+        quantity={isUnlocked ? 300 : 50}
+        staticity={isUnlocked ? 50 : 80}
+        ease={isUnlocked ? 50 : 80}
       />
       {/* Loading Page - Conditionally rendered */}
       {!isUnlocked && (
@@ -58,8 +54,8 @@ const Index = () => {
         </div>
       )}
 
-      {/* Floating Navigation - Always visible */}
-      <Header />
+      {/* Floating Navigation - Only visible after loading */}
+      {isUnlocked && <Header />}
       
       {/* Main Content - Lazy loaded after unlock */}
       {showContent && (
@@ -68,20 +64,15 @@ const Index = () => {
             ? 'opacity-100 transform translate-y-0' 
             : 'opacity-0 transform translate-y-8'
         }`}>
-          <main>
+          <main className="relative">
             <Particles
-              className="absolute inset-0"
-              quantity={isUnlocked ? 1000 : 500}
+              className="absolute inset-0 pointer-events-none"
+              quantity={500}
               staticity={50}
               ease={50}
             />
-            <Hero />
-            <About />
-            <Projects />
-            <Certifications />
-            <Contact />
+            <HorizontalSectionsContainer />
           </main>
-          <Footer />
         </div>
       )}
     </div>
