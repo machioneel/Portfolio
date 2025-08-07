@@ -1,34 +1,14 @@
 import { useState, useEffect } from "react"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { Button } from "@/components/ui/button"
+import { Home, User, FolderOpen, Award, Mail } from "lucide-react"
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [stage, setStage] = useState(0)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  useEffect(() => {
-    // Progressive header animation stages
-    const timeouts = [
-      setTimeout(() => setStage(1), 4500),  // Stage 1: 4.5s - Logo appears
-      setTimeout(() => setStage(2), 4800),  // Stage 2: 4.8s - About button appears
-      setTimeout(() => setStage(3), 5100),  // Stage 3: 5.1s - Projects button appears
-      setTimeout(() => setStage(4), 5400),  // Stage 4: 5.4s - Certifications button appears
-      setTimeout(() => setStage(5), 5700),  // Stage 5: 5.7s - Contact button appears
-      setTimeout(() => setStage(6), 6000),  // Stage 6: 6.0s - Theme toggle appears
-    ]
-
-    return () => {
-      timeouts.forEach(timeout => clearTimeout(timeout))
-    }
+    // Show navbar immediately when page loads
+    setIsVisible(true)
   }, [])
 
   const scrollToSection = (sectionId: string) => {
@@ -38,82 +18,40 @@ export function Header() {
     }
   }
 
-  return (
-    <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-700 ease-out ${
-        scrolled 
-          ? "bg-background/80 backdrop-blur-md border-b border-border" 
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Stage 1: Logo appears */}
-          <Button 
-            variant="ghost" 
-            onClick={() => scrollToSection("home")}
-            className={`text-xl font-semibold tracking-tight hover:bg-secondary transition-all duration-700 ease-out p-2 ${
-              stage >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-            }`}
-          >
-            Agung Prastyo
-          </Button>
-          
-          <nav className="hidden md:flex items-center space-x-8">
-            {/* Stage 2: About button appears */}
-            <Button 
-              variant="ghost" 
-              onClick={() => scrollToSection("about")}
-              className={`font-medium transition-all duration-700 ease-out hover:bg-secondary ${
-                stage >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              About
-            </Button>
-            
-            {/* Stage 3: Projects button appears */}
-            <Button 
-              variant="ghost" 
-              onClick={() => scrollToSection("projects")}
-              className={`font-medium transition-all duration-700 ease-out hover:bg-secondary ${
-                stage >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              Projects
-            </Button>
-            
-            {/* Stage 4: Certifications button appears */}
-            <Button 
-              variant="ghost" 
-              onClick={() => scrollToSection("certifications")}
-              className={`font-medium transition-all duration-700 ease-out hover:bg-secondary ${
-                stage >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              Certifications
-            </Button>
-            
-            {/* Stage 5: Contact button appears */}
-            <Button 
-              variant="ghost" 
-              onClick={() => scrollToSection("contact")}
-              className={`font-medium transition-all duration-700 ease-out hover:bg-secondary ${
-                stage >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              Contact
-            </Button>
-          </nav>
+  const navItems = [
+    { id: "home", icon: Home, label: "Home" },
+    { id: "about", icon: User, label: "About" },
+    { id: "projects", icon: FolderOpen, label: "Projects" },
+    { id: "certifications", icon: Award, label: "Certifications" },
+    { id: "contact", icon: Mail, label: "Contact" },
+  ]
 
-          {/* Stage 6: Theme toggle appears */}
-          <div className={`transition-all duration-700 ease-out ${
-            stage >= 6 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-          }`}>
-            <ThemeToggle />
-          </div>
+  if (!isVisible) return null
+
+  return (
+    <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-[9999] animate-fade-in">
+      <div className="bg-background/95 backdrop-blur-xl border border-border rounded-full px-3 py-2 shadow-2xl shadow-primary/20">
+        <div className="flex items-center space-x-2">
+          {navItems.map((item) => {
+            const Icon = item.icon
+            return (
+              <Button
+                key={item.id}
+                variant="ghost"
+                size="sm"
+                onClick={() => scrollToSection(item.id)}
+                className="rounded-full w-10 h-10 p-0 hover:bg-primary/10 hover:text-primary transition-all duration-200"
+                title={item.label}
+              >
+                <Icon className="w-4 h-4" />
+              </Button>
+            )
+          })}
+          <div className="w-px h-6 bg-border mx-1" />
+          <ThemeToggle />
         </div>
       </div>
-    </header>
+    </nav>
   )
 }
 

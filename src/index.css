@@ -249,11 +249,27 @@ All colors MUST be HSL.
   justify-content: center;
 }
 
+/* Mobile performance optimizations */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
 /* Responsive text scaling */
 @media (max-width: 640px) {
   [role="button"] {
     font-size: 2.5rem;
     line-height: 1.1;
+  }
+  
+  /* Ensure floating navbar is visible on mobile */
+  nav[class*="fixed bottom"] {
+    bottom: 1rem !important;
+    z-index: 9999 !important;
+  }
+  
+  body {
+    padding-bottom: 100px; /* Space for floating navbar */
   }
 }
 
@@ -261,5 +277,11 @@ All colors MUST be HSL.
   [role="button"] {
     font-size: 2rem;
     line-height: 1.2;
+  }
+  
+  /* Make navbar buttons smaller on small screens */
+  nav[class*="fixed bottom"] button {
+    width: 2.25rem;
+    height: 2.25rem;
   }
 }

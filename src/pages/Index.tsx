@@ -26,13 +26,17 @@ const Index = () => {
     }, 800);
   };
 
-  // Prevent scrolling when loading page is active
+  // Prevent scrolling when loading page is active and add mobile optimization
   useEffect(() => {
     if (!isUnlocked) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
+    
+    // Mobile performance optimization
+    (document.body.style as any).webkitTapHighlightColor = 'transparent';
+    (document.body.style as any).webkitTouchCallout = 'none';
     
     return () => {
       document.body.style.overflow = 'unset';
@@ -54,6 +58,9 @@ const Index = () => {
         </div>
       )}
 
+      {/* Floating Navigation - Always visible */}
+      <Header />
+      
       {/* Main Content - Lazy loaded after unlock */}
       {showContent && (
         <div className={`transition-all duration-1000 ease-out ${
@@ -61,7 +68,6 @@ const Index = () => {
             ? 'opacity-100 transform translate-y-0' 
             : 'opacity-0 transform translate-y-8'
         }`}>
-          <Header />
           <main>
             <Particles
               className="absolute inset-0"
