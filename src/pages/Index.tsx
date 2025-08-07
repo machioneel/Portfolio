@@ -43,7 +43,7 @@ const Index = () => {
     <div className="relative min-h-screen bg-background">
       <Particles
         className="absolute inset-0"
-        quantity={isUnlocked ? 1000 : 500}
+        quantity={isUnlocked ? 500 : 250}
         staticity={50}
         ease={50}
       />
