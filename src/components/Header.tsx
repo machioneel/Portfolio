@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { Button } from "@/components/ui/button"
-import { Home, User, FolderOpen, Award, Mail } from "lucide-react"
+import { Home, User, Briefcase, GraduationCap, FolderOpen, Award, Mail } from "lucide-react"
 
 export function Header() {
   const [isVisible, setIsVisible] = useState(false)
@@ -12,7 +12,7 @@ export function Header() {
   }, [])
 
   const scrollToSection = (sectionId: string) => {
-    const sections = ["home", "about", "projects", "certifications", "contact"]
+    const sections = ["home", "about", "experience", "projects", "certifications", "contact"]
     const sectionIndex = sections.indexOf(sectionId)
     
     if (sectionIndex !== -1) {
@@ -27,6 +27,7 @@ export function Header() {
   const navItems = [
     { id: "home", icon: Home, label: "Home" },
     { id: "about", icon: User, label: "About" },
+    { id: "experience", icon: Briefcase, label: "Experience" },
     { id: "projects", icon: FolderOpen, label: "Projects" },
     { id: "certifications", icon: Award, label: "Certifications" },
     { id: "contact", icon: Mail, label: "Contact" },

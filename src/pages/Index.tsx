@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { HorizontalSectionsContainer } from "@/components/HorizontalSectionsContainer";
-import { Footer } from "@/components/Footer";
+
 import { LoadingPage } from "@/components/LoadingPage";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState, useEffect } from "react";

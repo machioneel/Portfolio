@@ -34,9 +34,10 @@ export function Projects() {
     <section id="projects" className="py-24">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center mb-16 fade-in">
-            Featured Projects
-          </h2>
+          <header className="mb-8 md:mb-12 text-center">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Featured Projects</h1>
+            <p className="text-muted-foreground mt-2">A selection of work and initiatives.</p>
+          </header>
           
           <div className="grid lg:grid-cols-2 gap-8">
             {projects.map((project, index) => {

@@ -74,15 +74,13 @@ export function Certifications() {
       <section id="certifications" className="py-24">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16 fade-in">
-              <h2 className="text-4xl md:text-5xl font-light mb-4">
-                Certifications & Awards
-              </h2>
+            <header className="text-center mb-16 fade-in">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Certifications & Awards</h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Continuous learning and professional development through
                 industry-recognized certifications
               </p>
-            </div>
+            </header>
 
             <div className="grid md:grid-cols-2 gap-8">
               {certifications.map((cert, index) => (

@@ -24,9 +24,10 @@ export function About() {
     <section id="about" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center mb-16 fade-in">
-            About Me
-          </h2>
+          <header className="mb-8 md:mb-12 text-center">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">About Me</h1>
+            <p className="text-muted-foreground mt-2">Who I am and what I do.</p>
+          </header>
           
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="slide-up">
