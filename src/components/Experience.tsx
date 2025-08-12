@@ -14,19 +14,21 @@ export function Experience() {
         <div className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Senior Frontend Engineer • Perusahaan A</CardTitle>
-              <p className="text-sm text-muted-foreground">2022 — Sekarang</p>
+              <CardTitle>Administrative & IT Staff • Yayasan As-Salam Joglo</CardTitle>
+              <p className="text-sm text-muted-foreground">2020 — Sekarang</p>
             </CardHeader>
             <CardContent>
               <ul className="list-disc pl-5 space-y-2 text-sm md:text-base">
-                <li>Membangun UI performa tinggi dengan React + TypeScript.</li>
-                <li>Mengarahkan migrasi desain sistem dan aksesibilitas.</li>
-                <li>Berkolaborasi lintas tim untuk rilis fitur besar.</li>
+                <li>Melakukan pemecahan masalah harian pada hardware dan software untuk memastikan kelancaran operasional.</li>
+                <li>Membantu instalasi, konfigurasi, dan pembaruan software di lingkungan kerja.</li>
+                <li>Mengelola inventaris dan pemeliharaan aset TI, termasuk komputer dan perangkat jaringan.</li>
+                <li>Menerapkan praktik keamanan dasar seperti mengelola hak akses untuk dokumen digital.</li>
+                <li>Bertanggung jawab atas pengarsipan dokumen secara digital dan fisik.</li>
               </ul>
             </CardContent>
           </Card>
 
-          <Card>
+          {/*<Card>
             <CardHeader>
               <CardTitle>Frontend Engineer • Perusahaan B</CardTitle>
               <p className="text-sm text-muted-foreground">2020 — 2022</p>
@@ -38,7 +40,7 @@ export function Experience() {
                 <li>Meningkatkan skor Lighthouse hingga 95+.</li>
               </ul>
             </CardContent>
-          </Card>
+          </Card>*/}
         </div>
       </div>
     </section>
